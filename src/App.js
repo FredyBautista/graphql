@@ -1,5 +1,6 @@
 import React from 'react';
-import ListTopics from './Components/ListTopics/ListTopics'
+import ListTopics from './Components/ListTopics/ListTopics';
+import Loader from './Components/Loader/Loader';
 import './App.css';
 
 const App = () => {

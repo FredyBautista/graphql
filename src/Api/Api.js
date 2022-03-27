@@ -23,7 +23,7 @@ const httpLink = createHttpLink({
   const { data } = await client.query({
     query: gql`
       {
-        topic(name: ${topicName}) {
+        topic(name: "${topicName}") {
             id
             name
             relatedTopics(first: 10){
@@ -35,8 +35,5 @@ const httpLink = createHttpLink({
       }
     `
   });
-
-  const { topic } = data;
-  console.log(topic)
-  return topic
+  return data.topic
 }

@@ -1,12 +1,15 @@
 .topic {
     display: flex;
-    border: 1px solid #ccc!important;
+    border: 1px solid #ccc;
     border-radius: 15px;
     flex-flow: column;
     margin: 10px;
     width: 11em;
+    cursor: pointer;
 }
-
+.topic:hover {
+    background-color: aliceblue;
+}
 .container {
     padding: 10px;       
 }
