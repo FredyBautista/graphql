@@ -1,0 +1,5 @@
+.list-topics {
+    display: flex;
+    flex-wrap: wrap;
+    width: 35%;
+}
