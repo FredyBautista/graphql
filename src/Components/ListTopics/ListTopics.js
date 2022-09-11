@@ -1,37 +1,23 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
+import { useQuery } from "@apollo/client";
 import Topic from "../Topic/Topic";
 import Loader from "../Loader/Loader";
-import { getData } from '../../Api/Api';
+import { GET_TOPICS } from '../../Api/queries';
 import './ListTopics.css';
 
-const ListTopics = () => {
-    const [topic, setTopic] =useState([]);
-    const [isLoading, setLoading] = useState(false);
-    const [selectedTopic, setSelectedTopic] = useState('react');
+const ListTopics = ({ search = 'react', onClick }) => {
+    const { data, loading } = useQuery(GET_TOPICS, { variables: { name: search } });
+    const handleOnClick = name => onClick(name);
+    const { relatedTopics } = data?.topic || [];
 
-    useEffect(() => {
-        const getTopics = async () => {
-            setLoading(true);
-            const data = await getData(selectedTopic);
-            setTopic(data);
-            setLoading(false);
-        }
-        getTopics();
-    },[selectedTopic]);
-
-    const handleOnClick = (name) => {
-        setSelectedTopic(name);
-    }
-
-    const {name, relatedTopics} =topic;
-    return(
+    return (
         <div className="topics-container">
             <p>
-                You are seeing Topics related to <strong>{name}</strong> <br />
+                You are seeing Topics related to <strong>{search}</strong> <br />
                 If you want to see more Topics you can click in one item to see al the topics related
             </p>
             <div className="list-topics">
-                { isLoading ? <Loader /> :
+                {loading ? <Loader /> :
                     relatedTopics?.length > 0 && relatedTopics.map(topic =>
                         <Topic key={topic.id} topic={topic} onClick={handleOnClick} />
                     )
